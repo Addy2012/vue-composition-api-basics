@@ -56,6 +56,7 @@
   box-sizing: border-box;
   margin: 0;
   font-weight: normal;
+  position: relative;
 }
 
 body {
@@ -70,4 +71,8 @@ body {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.modal-container{
+  position: initial;
 }

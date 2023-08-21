@@ -1,59 +1,45 @@
 <template>
   <div class="home">
-    <h3>{{ counterData.title }}</h3>
-    <button class="btn" @click="decreaseCounter(2)">--</button>
-    <button class="btn" @click="decreaseCounter(1)">-</button>
-    <span class="counter">{{ counterData.count }}</span>
-    <button class="btn" @click="increaseCounter(1)">+</button>
-    <button class="btn" @click="increaseCounter(2)">++</button>
-    <p>This counter is {{ oddOrEven }}</p>
-  </div>
-  <div class="edit">
-    <h4>Edit counter title </h4>
-    <input type="text" v-model="counterData.title">
+
+    <h2 ref="appTitleRef">{{ appTitle }}</h2>
+
+    <h3>{{ counter.title }}</h3>
+
+    <div>
+      <button class="btn" @click="counter.decreaseCuunter(2)">--</button>
+      <button class="btn" @click="counter.decreaseCuunter(1)">-</button>
+      <span class="counter">{{ counter.count }}</span>
+      <button class="btn" @click="counter.increaseCounter(1)">+</button>
+      <button class="btn" @click="counter.increaseCounter(2)">++</button>
+    </div>
+
+    <p>This counter is {{ counter.oddOrEven }}</p>
+    <div class="edit">
+      <h4>Edit counter title </h4>
+      <input type="text" v-autofocus>
+    </div>
   </div>
 </template>
 
 <script setup>
 import {
-  reactive, computed, watch, onBeforeMount,
-  onMounted,
-  onBeforeUnmount,
+  ref, onBeforeMount,
+  onBeforeUnmount, onMounted,
   onUnmounted, onActivated, onDeactivated, onBeforeUpdate, onUpdated
 } from 'vue';
+import { vAutofocus } from '@/directives/vAutofocus'
+// import { useCounter } from '@/use/useCounter';
+import { useCounterStore } from '@/stores/counter';
+const appTitle = 'This is my home page vue '
 
-const counterData = reactive({
-  count: 0,
-  title: 'My Counter'
+onMounted(() => {
+  console.log(`The app title is ${appTitleRef.value.offsetWidth} px width`)
 })
 
-watch(() => counterData.count, (newCount, oldCount) => {
-  console.log('oldcount ', oldCount)
-  if (newCount > 10) {
-    alert('ruko zara, sabr karo')
-  }
-})
-const oddOrEven = computed(() => {
-  if (counterData.count % 2 === 0) return 'even'
-  return 'odd'
-})
-
-
-
-const increaseCounter = (amount) => {
-  counterData.count += amount;
-}
-
-const decreaseCounter = (amount) => {
-  counterData.count -= amount;
-}
+const appTitleRef = ref(null)
 
 onBeforeMount(() => {
   console.log("onBeforeMount")
-})
-
-onMounted(() => {
-  console.log("onMounted")
 })
 
 onBeforeUnmount(() => {
@@ -79,6 +65,12 @@ onBeforeUpdate(() => {
 onUpdated(() => {
   console.log('onUpdated')
 })
+
+/*
+Counter
+*/
+
+const counter = useCounterStore();
 </script> 
 
 <style>
