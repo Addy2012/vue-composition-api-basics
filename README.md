@@ -27,3 +27,8 @@ npm run dev
 ```sh
 npm run build
 ```
+
+
+If you face any issue running the code, please check your node and npm versions. The version I used to create this app is following
+node version v18.17.1
+npm version 9.6.7
